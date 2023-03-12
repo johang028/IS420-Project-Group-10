@@ -325,11 +325,11 @@ null, null, 3, 2, 0, 2);
 
 --Table 13: store dishes in an order, including order id and dish id
 create table dish_order (
-  doid      int,
+  oid      int,
   dishid       int,
-  primary key (doid),
+  foreign key (oid) references itemOrder (oid),
   foreign key (dishd) references dish (dishid)
-)
+);
 
 insert into dish_order values (do_seq.nextval,1);
 insert into dish_order values (do_seq.nextval,2);
@@ -344,7 +344,7 @@ create table payment (
   method    varchar(255)
   check (status in ('Credit/Debit Card','Apple Pay','PayPal')) not null,
   primary key (payid),
-  foreign key (oid) references order (oid),
+  foreign key (oid) references itemOrder (oid),
   foreign key (custid) references customer (custid)
   );
   
@@ -356,8 +356,8 @@ create sequence pay_seq
 	cache 50;
 
   insert into payment values (pay_seq.nextval,1,1,76.88,'Credit/Debit Card');
-  insert into payment values (pay_seq.nextval,10,2,64.12,'Credit/Debit Card');
-  insert into payment values (pay_seq.nextval,11,3,97.57,'Apple Pay');
+  insert into payment values (pay_seq.nextval,2,2,64.12,'Credit/Debit Card');
+  insert into payment values (pay_seq.nextval,3,3,97.57,'Apple Pay');
 
 --Table 15: message table
 create table message (
