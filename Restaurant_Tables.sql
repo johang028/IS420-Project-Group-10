@@ -298,9 +298,9 @@ create sequence do_seq
 	increment by 1
 	cache 50;
 
-insert into dish_order values (1,2);
-insert into dish_order values (2,5);
-insert into dish_order values (3,9);
+insert into dish_order values (do_seq.nextval,1);
+insert into dish_order values (do_seq.nextval,2);
+insert into dish_order values (do_seq.nextval,3);
 
 --Table 14: payment table
 create table payment (
@@ -321,9 +321,9 @@ create sequence pay_seq
 	increment by 1
 	cache 50;
 
-  insert into payment values (1,1,1,76.88,'Credit/Debit Card');
-  insert into payment values (2,10,2,64.12,'Credit/Debit Card');
-  insert into payment values (3,11,3,97.57,'Apple Pay');
+  insert into payment values (pay_seq.nextval,1,1,76.88,'Credit/Debit Card');
+  insert into payment values (pay_seq.nextval,10,2,64.12,'Credit/Debit Card');
+  insert into payment values (pay_seq.nextval,11,3,97.57,'Apple Pay');
 
 --Table 15: message table
 create table message (
@@ -341,7 +341,7 @@ create sequence mes_seq
 	increment by 1
 	cache 50;
 
-insert into message values (1,1, date '2023-1-28', 'Receipt concerns with previous visit to the restaurant');
-insert into message values (2,2, date '2023-1-30', 'A personal message thanking the head chef.');
-insert into message values (3,3, date '2023-2-15', 'Is this restaurant open on weekends?');
+insert into message values (mes_seq.nextval,1, date '2023-1-28', 'Receipt concerns with previous visit to the restaurant');
+insert into message values (mes_seq.nextval,2, date '2023-1-30', 'A personal message thanking the head chef.');
+insert into message values (mes_seq.nextval,3, date '2023-2-15', 'Is this restaurant open on weekends?');
 
