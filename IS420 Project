@@ -1,3 +1,85 @@
+drop table restaurant cascade constraints;
+drop sequence res_seq;
+
+drop table category cascade constraints;
+drop sequence cat_seq;
+
+drop table dish cascade constraints;
+drop sequence dish_seq;
+
+drop table res_cat cascade constraints;
+
+--Table 6: Restaurant
+create table restaurant(
+    resid int,
+    resname varchar(30),
+    resphonenum varchar(10),
+    resstatus varchar(6), --open or closed
+    resaddress varchar(30),
+    reszipcode varchar(10),
+    resstate varchar(30),
+    resavgwaittime int,
+    resavgreviewscore int,
+    primary key (resid)
+);
+
+create sequence res_seq
+    minvalue 1
+    increment by 1;
+
+insert into restaurant values(res_seq.nextval, 'Bobs Pizza', '4434568171', 'open', 
+    '123 street', '46172', 'Maryland', null, null);
+insert into restaurant values(res_seq.nextval, 'Timmy Tams', '4637263758', 'closed', 
+    '123 ave', '74582', 'New York', null, null);
+insert into restaurant values(res_seq.nextval, 'Burger Place', '7584726486', 'open', 
+    '123 drive', '18374', 'Maine', null, null);
+
+--Table 8: Dish
+create table dish(
+    dishid int,
+    resid int,
+    dishname varchar(30),
+    dishprice int,
+    primary key (dishid),
+    foreign key (resid) references restaurant
+);
+
+create sequence dish_seq
+    minvalue 1
+    increment by 1;
+
+insert into dish values(dish_seq.nextval, 1, 'Pizza', 10);
+insert into dish values(dish_seq.nextval, 2, 'Tams', 2);
+insert into dish values(dish_seq.nextval, 3, 'Veggie Burger', 35);
+
+--Table 5: Category
+create table category(
+    catid int,
+    catname varchar(30),
+    primary key (catid)
+);
+
+create sequence cat_seq
+    minvalue 1
+    increment by 1;
+
+insert into category values(cat_seq.nextval, 'Italian');
+insert into category values(cat_seq.nextval, 'Fast Food');
+insert into category values(cat_seq.nextval, 'American');
+
+--Table 7: Restaurant_category
+create table res_cat(
+    catid int,
+    resid int,
+    primary key (catid, resid),
+    foreign key (catid) references category,
+    foreign key (resid) references restaurant
+);
+
+insert into res_cat values(1, 1);
+insert into res_cat values(2, 2);
+insert into res_cat values(3, 3);
+
 --Table 13: store dishes in an order, including order id and dish id
 create table dish_order (
   doid      int,
