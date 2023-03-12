@@ -161,11 +161,11 @@ Foreign key (cid) References customer(cid),
 Foreign key (did) References discount(did)
 );
 Insert into discounts (cid, did, discount_start_date, discount_end_date) values
-(1,1, 2023-02-12, 2023-02-18);
+(1,1, date '2023-02-12', date '2023-02-18');
 Insert into discounts (cid, did, discount_start_date, discount_end_date) values
-(1,1, 2023-06-11, 2023-06-17);
+(1,1, date '2023-06-11', date '2023-06-17');
 Insert into discounts (cid, did, discount_start_date, discount_end_date) values
-(1,1, 2023-01-09, 2023-02-15);
+(1,1, date '2023-01-09', date '2023-02-15');
 
 --Table 6: Restaurant
 create table restaurant(
