@@ -35,7 +35,7 @@ drop table message cascade constraints;
 drop sequence mes_seq;
 
 Drop table discount cascade constraints; 
-Drop table discount_seq;
+Drop sequence discount_seq;
 
 Drop table customer_discount cascade constraints; 
 
@@ -45,9 +45,9 @@ create table customer (
 	cname varchar2(255) not null,
 	cadr varchar2(255),
 	cstt varchar2(2),
-	czip int(5),
+	czip number(5),
 	cemail varchar2(255),
-	credit int(4,2),
+	credit decimal,
 	
 	primary key (cid)
 );
@@ -80,7 +80,7 @@ create table review (
 	cid int not null,
 	rtid int not null,
 	rvdate date not null,
-	rvscr int(1,1) not null check (rvscr between 0.0 and 5.0),
+	rvscr decimal not null check (rvscr between 0.0 and 5.0),
 	rvcmt varchar2(255),
 	
 	primary key (rvid)
@@ -96,11 +96,11 @@ cache 50;
 
 --data for table review
 insert into review
-	values (seq_rvid.next, 1, 1, to_date('2023-02-02', 'yyyy-mm-dd'), 5.0, 'very good');
+	values (seq_rvid.nextval, 1, 1, date '2023-02-02', 5.0, 'very good');
 insert into review
-	values (seq_rvid.next, 2, 2, to_date('2023-02-04', 'yyyy-mm-dd'), 4.0, 'It is okay');
+	values (seq_rvid.nextval, 2, 2, date '2023-02-04', 4.0, 'It is okay');
 insert into review
-	values (seq_rvid.next, 1, 2, to_date('2023-02-02', 'yyyy-mm-dd'), 4.5, 'food is good, service is okay');
+	values (seq_rvid.nextval, 1, 2, date '2023-02-02', 4.5, 'food is good, service is okay');
 	
 -- Table 2: discount
 Create table discount (
@@ -114,18 +114,18 @@ create sequence discount_seq
     minvalue 1
     increment by 1;
 
-Insert into discounts (did, discount_description, discount_type) values
-(discount_seq.nextval, 1, 'Free delivery', 1);
-Insert into discounts (did, discount_description, discount_type) values
-(discount_seq.nextval, 2, '10% off total charge', 2);
-Insert into discounts (did, discount_description, discount_type) values
-(discount_seq.nextval, 3, '20% off total charge', 3);
+Insert into discount (did, discount_description, discount_type) values
+(discount_seq.nextval, 'Free delivery', 1);
+Insert into discount (did, discount_description, discount_type) values
+(discount_seq.nextval, '10% off total charge', 2);
+Insert into discount (did, discount_description, discount_type) values
+(discount_seq.nextval, '20% off total charge', 3);
 
 -- Table 3: store sales tax information
 create table salestax (
 	stid int not null,
 	ststt varchar2(2) not null,
-	strt int(0,4) not null,
+	strt decimal not null,
 	
 	primary key (stid)
 );
@@ -140,15 +140,15 @@ cache 50;
 
 --data for table customer
 insert into salestax
-	values (seq_stid.next, AK, 0.0000);
+	values (seq_stid.nextval, 'AK', 0.0000);
 insert into salestax
-	values (seq_stid.next, DC, 0.6000);
+	values (seq_stid.nextval, 'DC', 0.6000);
 insert into salestax
-	values (seq_stid.next, MD, 0.6000);
+	values (seq_stid.nextval, 'MD', 0.6000);
 insert into salestax
-	values (seq_stid.next, VA, 0.5300);
+	values (seq_stid.nextval, 'VA', 0.5300);
 insert into salestax
-	values (seq_stid.next, TX, 0.6250);
+	values (seq_stid.nextval, 'TX', 0.6250);
 	
 ---Table 4 : Customer Discount
 Create table customer_discount (
@@ -160,12 +160,13 @@ Primary key (cid, did),
 Foreign key (cid) References customer(cid),
 Foreign key (did) References discount(did)
 );
-Insert into discounts (cid, did, discount_start_date, discount_end_date) values
-(1,1, date '2023-02-12', date '2023-02-18');
-Insert into discounts (cid, did, discount_start_date, discount_end_date) values
-(1,1, date '2023-06-11', date '2023-06-17');
-Insert into discounts (cid, did, discount_start_date, discount_end_date) values
-(1,1, date '2023-01-09', date '2023-02-15');
+
+Insert into customer_discount (cid, did, discount_start_date, discount_end_date) values
+(1, 1, date '2023-02-12', date '2023-02-18');
+Insert into customer_discount (cid, did, discount_start_date, discount_end_date) values
+(2, 2, date '2023-06-11', date '2023-06-17');
+Insert into customer_discount (cid, did, discount_start_date, discount_end_date) values
+(3, 3, date '2023-01-09', date '2023-02-15');
 
 --Table 6: Restaurant
 create table restaurant(
@@ -342,27 +343,28 @@ null, null, 3, 2, 0, 2);
 
 --Table 13: store dishes in an order, including order id and dish id
 create table dish_order (
-  oid      int,
+  orderid      int,
   dishid       int,
-  foreign key (oid) references itemOrder (oid),
-  foreign key (dishd) references dish (dishid)
+  primary key (orderid, dishid),
+  foreign key (orderid) references itemOrder (orderid),
+  foreign key (dishid) references dish (dishid)
 );
 
-insert into dish_order values (do_seq.nextval,1);
-insert into dish_order values (do_seq.nextval,2);
-insert into dish_order values (do_seq.nextval,3);
+insert into dish_order values (1,1);
+insert into dish_order values (2,2);
+insert into dish_order values (3,3);
 
 --Table 14: payment table
 create table payment (
   payid       int,
-  oid         int,
-  custid      int,
+  orderid         int,
+  cid      int,
   pamount     number(5,2),
   method    varchar(255)
-  check (status in ('Credit/Debit Card','Apple Pay','PayPal')) not null,
+  constraint check_payment check(method in ('Credit/Debit Card','Apple Pay','PayPal')) not null,
   primary key (payid),
-  foreign key (oid) references itemOrder (oid),
-  foreign key (custid) references customer (custid)
+  foreign key (orderid) references itemOrder (orderid),
+  foreign key (cid) references customer (cid)
   );
   
 create sequence pay_seq
@@ -379,11 +381,11 @@ create sequence pay_seq
 --Table 15: message table
 create table message (
   mesid        int,
-  custid       int,
+  cid       int,
   mtime        date,
   mbody        varchar(255),
   primary key (mesid),
-  foreign key (custid) references customer (custid)
+  foreign key (cid) references customer (cid)
 );
 
 create sequence mes_seq
@@ -396,4 +398,3 @@ create sequence mes_seq
 insert into message values (mes_seq.nextval,1, date '2023-1-28', 'Receipt concerns with previous visit to the restaurant');
 insert into message values (mes_seq.nextval,2, date '2023-1-30', 'A personal message thanking the head chef.');
 insert into message values (mes_seq.nextval,3, date '2023-2-15', 'Is this restaurant open on weekends?');
-
