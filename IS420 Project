@@ -194,6 +194,13 @@ foreign key (cid) references customer,
 foreign key (resid) references restaurant
 );
 
+create sequence seq_cart
+minvalue 0
+maxvalue 9999999
+start with 1
+increment by 1
+cache 50;
+
 --Table 11: Cart_dish
 create table cart_dish(
 cartid int,
@@ -204,6 +211,13 @@ foreign key (cartid) references cart,
 foreign key (resid) references restaurant,
 foreign key (dishid) references dish
 );
+
+create sequence seq_cart_dish
+minvalue 0
+maxvalue 9999999
+start with 1
+increment by 1
+cache 50;
 
 --Table 12: Order (named itemOrder since order is a keyword)
 create table itemOrder(
@@ -223,6 +237,13 @@ foreign key (resid) references restaurant,
 constraint check_orders_delivery_method check(delivery_method in (1, 2)),
 constraint check_orders_status check(status in (1, 2, 3))
 );
+
+create sequence seq_item_order
+minvalue 0
+maxvalue 9999999
+start with 1
+increment by 1
+cache 50;
 
 --Table 13: store dishes in an order, including order id and dish id
 create table dish_order (
