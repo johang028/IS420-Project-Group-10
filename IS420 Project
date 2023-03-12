@@ -9,6 +9,110 @@ drop sequence dish_seq;
 
 drop table res_cat cascade constraints;
 
+drop table salestax cascade constraints;
+drop sequence seq_stid
+
+
+drop table review cascade constraints;
+drop sequence seq_rvid
+
+drop table customer cascade constraints;
+drop sequence seq_cid
+
+-- Table store customer information
+create table customer (
+	cid int not null,
+	cname varchar2(255) not null,
+	cadr varchar2(255),
+	cstt varchar2(2),
+	czip int(5),
+	cemail varchar2(255),
+	credit int(4,2),
+	
+	primary key (cid)
+);
+
+-- AutoSequence for Customer ID
+create sequence seq_cid
+minvalue 0
+maxvalue 9999999
+start with 1
+increment by 1
+cache 50;
+
+--data for table customer
+insert into customer 
+	values (seq_custid, 'Wendi Robles', '202 W. Shore Ave', 'OH', 43612, 'rattha@problemstory.us', 0);
+insert into customer 
+	values (seq_custid, 'Darnell House', '7765 Taklin Hill Dr.', 'CA', 95301, 'fxllipek@mtcxmail.com', 350.00);
+insert into customer
+	values (seq_custid, 'Korey Booth', '67 Sycamore St', 'GA', 31021, 'tavaira@kientao.online', 200.00);
+insert into customer
+	values (seq_custid, 'Milly Jenkins', '13458 Centennial Lane', 'MD', 21042, 'milly@gmail.com', 15.00);
+insert into customer
+	values (seq_custid, 'Sam Houston', '4277 Winsor mills rd.', 'MD', 22442, 'sam@gmail.com', 1.00);
+insert into customer
+	values (seq_custid, 'Ben Franklin', '84 Milky way', 'MD', 21444, 'benf@gmail.com', 0);
+
+-- Table to store review information
+create table review (
+	rvid int not null,
+	cid int not null,
+	rtid int not null,
+	rvdate date not null,
+	rvscr int(1,1) not null check (rvscr between 0.0 and 5.0),
+	rvcmt varchar2(255),
+	
+	primary key (rvid)
+);
+
+-- AutoSequence for review ID
+create sequence seq_rvid
+minvalue 0
+maxvalue 9999999
+start with 1
+increment by 1
+cache 50;
+
+--data for table review
+insert into review
+	values (seq_rvid.next, 1, 1, to_date('2023-02-02', 'yyyy-mm-dd'), 5.0, 'very good');
+insert into review
+	values (seq_rvid.next, 2, 2, to_date('2023-02-04', 'yyyy-mm-dd'), 4.0, 'It is okay');
+insert into review
+	values (seq_rvid.next, 1, 2, to_date('2023-02-02', 'yyyy-mm-dd'), 4.5, 'food is good, service is okay');
+
+
+-- Table 3: store sales tax information
+create table salestax (
+	stid int not null,
+	ststt varchar2(2) not null,
+	strt int(0,4) not null,
+	
+	primary key (stid)
+);
+
+-- AutoSequence for Sales Tax ID
+create sequence seq_stid
+minvalue 0
+maxvalue 9999999
+start with 1
+increment by 1
+cache 50;
+
+--data for table customer
+insert into salestax
+	values (seq_stid.next, AK, 0.0000);
+insert into salestax
+	values (seq_stid.next, DC, 0.6000);
+insert into salestax
+	values (seq_stid.next, MD, 0.6000);
+insert into salestax
+	values (seq_stid.next, VA, 0.5300);
+insert into salestax
+	values (seq_stid.next, TX, 0.6250);
+
+
 --Table 6: Restaurant
 create table restaurant(
     resid int,
