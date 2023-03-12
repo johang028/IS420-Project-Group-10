@@ -119,7 +119,7 @@ Insert into discounts (did, discount_description, discount_type) values
 Insert into discounts (did, discount_description, discount_type) values
 (discount_seq.nextval, 2, '10% off total charge', 2);
 Insert into discounts (did, discount_description, discount_type) values
-(discount_seq.nextval, 3, ‘'20% off total charge', 3);
+(discount_seq.nextval, 3, '20% off total charge', 3);
 
 -- Table 3: store sales tax information
 create table salestax (
