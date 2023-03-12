@@ -186,30 +186,30 @@ insert into res_cat values(3, 3);
 
 --Table 10: Cart
 create table cart(
-cartID int,
-customerID int,
+cartid int,
+cid int,
 resid int,
-primary key (cartID),
-foreign key (customerID) references customer,
-foreign key (restaurantID) references restaurant
+primary key (cartid),
+foreign key (cid) references customer,
+foreign key (resid) references restaurant
 );
 
 --Table 11: Cart_dish
 create table cart_dish(
-cartID int,
-restaurantID int,
-dishID int,
+cartid int,
+resid int,
+dishid int,
 quantity int,
-foreign key (cartID) references cart,
-foreign key (restaurantID) references restaurant,
-foreign key (dishID) references dish
+foreign key (cartid) references cart,
+foreign key (resid) references restaurant,
+foreign key (dishid) references dish
 );
 
 --Table 12: Order (named itemOrder since order is a keyword)
 create table itemOrder(
-orderID int,
-customerID int, 
-restaurantID int,
+orderid int,
+cid int, 
+resid int,
 order_time timestamp,
 delivery_time timestamp,
 estimated_time timestamp,
@@ -217,9 +217,9 @@ status int,
 payment_status int, 
 total_cost decimal, 
 delivery_method int,
-primary key (orderID),
-foreign key (customerID) references customer,
-foreign key (restaurantID) references restaurant, 
+primary key (orderid),
+foreign key (cid) references customer,
+foreign key (resid) references restaurant, 
 constraint check_orders_delivery_method check(delivery_method in (1, 2)),
 constraint check_orders_status check(status in (1, 2, 3))
 );
