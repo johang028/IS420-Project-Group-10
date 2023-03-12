@@ -10,14 +10,14 @@ drop sequence dish_seq;
 drop table res_cat cascade constraints;
 
 drop table salestax cascade constraints;
-drop sequence seq_stid
+drop sequence seq_stid;
 
 
 drop table review cascade constraints;
-drop sequence seq_rvid
+drop sequence seq_rvid;
 
 drop table customer cascade constraints;
-drop sequence seq_cid
+drop sequence seq_cid;
 
 -- Table store customer information
 create table customer (
