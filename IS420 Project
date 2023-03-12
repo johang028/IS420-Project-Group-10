@@ -238,6 +238,20 @@ start with 1
 increment by 1
 cache 50;
 
+insert into cart
+values
+(seq_cart.nextval, 1, 1);
+
+insert into cart
+values
+(seq_cart.nextval, 1, 2);
+
+insert into cart
+values
+(seq_cart.nextval, 2, 2);
+
+select * from cart;
+
 --Table 11: Cart_dish
 create table cart_dish(
 cartid int,
@@ -248,6 +262,18 @@ foreign key (cartid) references cart,
 foreign key (resid) references restaurant,
 foreign key (dishid) references dish
 );
+
+insert into cart_dish
+values
+(1, 1, 1, 10);
+
+insert into cart_dish
+values
+(2, 2, 1, 5);
+
+insert into cart_dish
+values
+(3, 2, 2, 15);
 
 --Table 12: Order (named itemOrder since order is a keyword)
 create table itemOrder(
@@ -264,16 +290,31 @@ delivery_method int,
 primary key (orderid),
 foreign key (cid) references customer,
 foreign key (resid) references restaurant, 
-constraint check_orders_delivery_method check(delivery_method in (1, 2)),
-constraint check_orders_status check(status in (1, 2, 3))
+constraint check_order_delivery_method check(delivery_method in (1, 2)),
+constraint check_order_status check(status in (1, 2, 3))
 );
 
-create sequence seq_item_order
+create sequence seq_itemOrder
 minvalue 0
 maxvalue 9999999
 start with 1
 increment by 1
 cache 50;
+
+insert into itemOrder
+values
+(seq_itemOrder.nextval, 1, 1, timestamp '2023-3-12 09:00:30.75', 
+timestamp '2023-3-12 09:30:30.75', timestamp '2023-3-12 09:20:30.75', 1, 1, 20.20, 1);
+
+insert into itemOrder
+values
+(seq_itemOrder.nextval, 2, 2, timestamp '2023-3-12 10:00:30.75', 
+null, timestamp '2023-3-12 10:15:30.75', 1, 2, 50.25, 2);
+
+insert into itemOrder
+values
+(seq_itemOrder.nextval, 3, 2, timestamp '2023-3-12 12:15:30.75', 
+null, null, 3, 2, 0, 2);
 
 --Table 13: store dishes in an order, including order id and dish id
 create table dish_order (
