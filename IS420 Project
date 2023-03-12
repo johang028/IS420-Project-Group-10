@@ -1,0 +1,40 @@
+--Table 13: store dishes in an order, including order id and dish id
+create table dish_order (
+  doid      int,
+  did       int,
+)
+
+insert into dish_order values (1,2);
+insert into dish_order values (2,5);
+insert into dish_order values (3,9);
+
+--Table 14: payment table
+create table payment (
+  payid       int,
+  oid         int,
+  custid      int,
+  pamount     number(5,2),
+  method    varchar(255)
+  check (status in ('Credit/Debit Card','Apple Pay','PayPal')) not null,
+  primary key (payid),
+  foreign key (oid) references order (oid),
+  foreign key (custid) references customer (custid)
+  );
+
+  insert into payment values (1,1,1,76.88,'Credit/Debit Card');
+  insert into payment values (2,10,2,64.12,'Credit/Debit Card');
+  insert into payment values (3,11,3,97.57,'Apple Pay');
+
+--Table 15: message table
+create table message (
+  mesid        int,
+  custid       int,
+  mtime        date,
+  mbody        varchar(255),
+  primary key (mesid),
+  foreign key (custid) references customer (custid)
+);
+
+insert into message values (1,1, date '2023-1-28', 'Receipt concerns with previous visit to the restaurant');
+insert into message values (2,2, date '2023-1-30', 'A personal message thanking the head chef.');
+insert into message values (3,3, date '2023-2-15', 'Is this restaurant open on weekends?');
