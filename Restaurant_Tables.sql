@@ -1,3 +1,133 @@
+-- T01 Customer
+-- T01.0: drop customer table and its pk sequence
+drop table customer cascade constraints;
+drop sequence seq_cid;
+
+-- T01.1: create customer table
+create table customer (
+	cid int not null,
+	cname varchar2(255) not null,
+	cadr varchar2(255),
+	cstt varchar2(2),
+	czip number(5),
+	cemail varchar2(255),
+	credit decimal,
+	
+	primary key (cid)
+);
+
+-- T01.2: create autosequence for CID
+create sequence seq_cid
+	minvalue 0
+	start with 1
+	increment by 1
+	cache 50;
+
+-- T01.3: insert data to customer
+insert into customer 
+	values (1, 'Wendi Robles', '202 W. Shore Ave', 'OH', 43612, 'rattha@problemstory.us', 0);
+insert into customer 
+	values (seq_cid.nextval, 'Darnell House', '7765 Taklin Hill Dr.', 'CA', 95301, 'fxllipek@mtcxmail.com', 350.00);
+insert into customer
+	values (seq_cid.nextval, 'Korey Booth', '67 Sycamore St', 'GA', 31021, 'tavaira@kientao.online', 200.00);
+insert into customer
+	values (seq_cid.nextval, 'Milly Jenkins', '13458 Centennial Lane', 'MD', 21042, 'milly@gmail.com', 15.00);
+insert into customer
+	values (seq_cid.nextval, 'Sam Houston', '4277 Winsor mills rd.', 'MD', 22442, 'sam@gmail.com', 1.00);
+insert into customer
+	values (seq_cid.nextval, 'Ben Franklin', '84 Milky way', 'MD', 21444, 'benf@gmail.com', 0);
+
+
+-- T02 Discount
+-- T02.0: drop discount table and its pk sequence
+drop table discount cascade constraints;
+drop sequence seq_did;
+
+-- T02.1: create discount table
+create table discount (
+	did int not null,
+	discount_description varchar2(255),
+	discount_type int not null,
+
+	primary key (did)
+);
+
+-- T02.2: create autosequence for DID
+create sequence discount_seq
+	minvalue 1
+	increment by 1;
+	cache 50;
+	
+-- T02.3: insert date to discount
+Insert into discount (did, discount_description, discount_type)
+	values (1, 'Free delivery', 1);
+Insert into discount (did, discount_description, discount_type) 
+	values (discount_seq.nextval, '10% off total charge', 2);
+Insert into discount (did, discount_description, discount_type) 
+	values (discount_seq.nextval, '20% off total charge', 3);
+
+
+-- T03 Sale Tax
+-- T03.0: drop saletax table and its pk sequence
+drop table salestax cascade constraints;
+drop sequence seq_stid;
+
+-- T03.1: create saletax table
+create table salestax (
+	stid int not null,
+	ststt varchar2(2) not null,
+	strt decimal not null,
+	
+	primary key (stid)
+);
+
+-- T03.2: create sequence for STID
+create sequence seq_stid
+	minvalue 0
+	start with 1
+	increment by 1
+	cache 50;
+
+-- T03.3: insert data to saletax
+insert into salestax
+	values (1, AK, 0.0000);
+insert into salestax
+	values (seq_stid.next, DC, 0.6000);
+insert into salestax
+	values (seq_stid.next, MD, 0.6000);
+insert into salestax
+	values (seq_stid.next, VA, 0.5300);
+insert into salestax
+	values (seq_stid.next, TX, 0.6250);
+	
+  
+-- T04 Customer Discount
+-- T04.0: drop customer_discount table and its pk sequence
+drop table customer_discount cascade constraints; 
+
+-- T04.1: create customer_discount table
+create table customer_discount (
+	cid int not null,
+	did int not null,
+	discount_start_date date not null,
+	discount_end_date date not null,
+
+	primary key (cid, did),
+	foreign key (cid) References customer(cid),
+	foreign key (did) References discount(did)
+);
+
+-- T04.3: insert data to customer_discount
+Insert into customer_discount (cid, did, discount_start_date, discount_end_date)
+	values (1, 1, date '2023-02-12', date '2023-02-18');
+Insert into customer_discount (cid, did, discount_start_date, discount_end_date) 
+	values (2, 2, date '2023-06-11', date '2023-06-17');
+Insert into customer_discount (cid, did, discount_start_date, discount_end_date) 
+	values (3, 3, date '2023-01-09', date '2023-02-15');
+
+
+
+--old codes
 drop table restaurant cascade constraints;
 drop sequence res_seq;
 
@@ -37,45 +167,8 @@ drop sequence mes_seq;
 Drop table discount cascade constraints; 
 Drop sequence discount_seq;
 
-Drop table customer_discount cascade constraints; 
-
--- Table store customer information
-create table customer (
-	cid int not null,
-	cname varchar2(255) not null,
-	cadr varchar2(255),
-	cstt varchar2(2),
-	czip number(5),
-	cemail varchar2(255),
-	credit decimal,
-	
-	primary key (cid)
-);
-
--- AutoSequence for Customer ID
-create sequence seq_cid
-minvalue 0
-maxvalue 9999999
-start with 1
-increment by 1
-cache 50;
-
---data for table customer
-insert into customer 
-	values (seq_cid.nextval, 'Wendi Robles', '202 W. Shore Ave', 'OH', 43612, 'rattha@problemstory.us', 0);
-insert into customer 
-	values (seq_cid.nextval, 'Darnell House', '7765 Taklin Hill Dr.', 'CA', 95301, 'fxllipek@mtcxmail.com', 350.00);
-insert into customer
-	values (seq_cid.nextval, 'Korey Booth', '67 Sycamore St', 'GA', 31021, 'tavaira@kientao.online', 200.00);
-insert into customer
-	values (seq_cid.nextval, 'Milly Jenkins', '13458 Centennial Lane', 'MD', 21042, 'milly@gmail.com', 15.00);
-insert into customer
-	values (seq_cid.nextval, 'Sam Houston', '4277 Winsor mills rd.', 'MD', 22442, 'sam@gmail.com', 1.00);
-insert into customer
-	values (seq_cid.nextval, 'Ben Franklin', '84 Milky way', 'MD', 21444, 'benf@gmail.com', 0);
 
 
-	
 -- Table 2: discount
 Create table discount (
 did int,
