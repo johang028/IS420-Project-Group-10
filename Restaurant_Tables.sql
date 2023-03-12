@@ -15,6 +15,14 @@ drop sequence seq_stid;
 drop table review cascade constraints;
 drop sequence seq_rvid;
 
+drop table cart cascade constraints;
+drop sequence seq_cart;
+
+drop table cart_dish cascade constraints;
+
+drop table itemOrder cascade constraints;
+drop sequence seq_itemOrder;
+
 drop table customer cascade constraints;
 drop sequence seq_cid;
 
@@ -26,13 +34,7 @@ drop sequence pay_seq;
 drop table message cascade constraints;
 drop sequence mes_seq;
 
-drop table cart cascade constraints;
-drop sequence seq_cart;
 
-drop table cart_dish cascade constraints;
-
-drop table itemOrder cascade constraints;
-drop sequence seq_itemOrder;
 
 -- Table store customer information
 create table customer (
