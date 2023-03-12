@@ -19,6 +19,11 @@ drop sequence seq_rvid;
 drop table customer cascade constraints;
 drop sequence seq_cid;
 
+Drop table discount cascade constraints; 
+Drop table discount_seq;
+
+Drop table customer_discount cascade constraints; 
+
 -- Table store customer information
 create table customer (
 	cid int not null,
