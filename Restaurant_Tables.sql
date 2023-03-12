@@ -34,7 +34,10 @@ drop sequence pay_seq;
 drop table message cascade constraints;
 drop sequence mes_seq;
 
+Drop table discount cascade constraints; 
+Drop table discount_seq;
 
+Drop table customer_discount cascade constraints; 
 
 -- Table store customer information
 create table customer (
