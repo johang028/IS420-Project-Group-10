@@ -19,7 +19,6 @@ drop table customer cascade constraints;
 drop sequence seq_cid;
 
 drop table dish_order cascade constraints;
-drop sequence do_seq;
 
 drop table payment cascade constraints;
 drop sequence pay_seq;
@@ -231,57 +230,57 @@ insert into res_cat values(3, 3);
 
 --Table 10: Cart
 create table cart(
-cartid int,
-cid int,
-resid int,
-primary key (cartid),
-foreign key (cid) references customer,
-foreign key (resid) references restaurant
+	cartid int,
+	cid int,
+	resid int,
+	primary key (cartid),
+	foreign key (cid) references customer,
+	foreign key (resid) references restaurant
 );
 
 create sequence seq_cart
-minvalue 0
-maxvalue 9999999
-start with 1
-increment by 1
-cache 50;
+	minvalue 0
+	maxvalue 9999999
+	start with 1
+	increment by 1
+	cache 50;
 
 --Table 11: Cart_dish
 create table cart_dish(
-cartid int,
-resid int,
-dishid int,
-quantity int,
-foreign key (cartid) references cart,
-foreign key (resid) references restaurant,
-foreign key (dishid) references dish
+	cartid int,
+	resid int,
+	dishid int,
+	quantity int,
+	foreign key (cartid) references cart,
+	foreign key (resid) references restaurant,
+	foreign key (dishid) references dish
 );
 
 --Table 12: Order (named itemOrder since order is a keyword)
 create table itemOrder(
-orderid int,
-cid int, 
-resid int,
-order_time timestamp,
-delivery_time timestamp,
-estimated_time timestamp,
-status int,
-payment_status int, 
-total_cost decimal, 
-delivery_method int,
-primary key (orderid),
-foreign key (cid) references customer,
-foreign key (resid) references restaurant, 
-constraint check_orders_delivery_method check(delivery_method in (1, 2)),
-constraint check_orders_status check(status in (1, 2, 3))
+	orderid int,
+	cid int, 
+	resid int,
+	order_time timestamp,
+	delivery_time timestamp,
+	estimated_time timestamp,
+	status int,
+	payment_status int, 
+	total_cost decimal, 
+	delivery_method int,
+	primary key (orderid),
+	foreign key (cid) references customer,
+	foreign key (resid) references restaurant, 
+	constraint check_orders_delivery_method check(delivery_method in (1, 2)),
+	constraint check_orders_status check(status in (1, 2, 3))
 );
 
 create sequence seq_item_order
-minvalue 0
-maxvalue 9999999
-start with 1
-increment by 1
-cache 50;
+	minvalue 0
+	maxvalue 9999999
+	start with 1
+	increment by 1
+	cache 50;
 
 --Table 13: store dishes in an order, including order id and dish id
 create table dish_order (
@@ -290,13 +289,6 @@ create table dish_order (
   primary key (doid),
   foreign key (dishd) references dish (dishid)
 )
-
-create sequence do_seq
-	minvalue 0
-	maxvalue 9999999
-	start with 1
-	increment by 1
-	cache 50;
 
 insert into dish_order values (do_seq.nextval,1);
 insert into dish_order values (do_seq.nextval,2);
@@ -314,6 +306,7 @@ create table payment (
   foreign key (oid) references order (oid),
   foreign key (custid) references customer (custid)
   );
+  
 create sequence pay_seq
 	minvalue 0
 	maxvalue 9999999
@@ -334,6 +327,7 @@ create table message (
   primary key (mesid),
   foreign key (custid) references customer (custid)
 );
+
 create sequence mes_seq
 	minvalue 0
 	maxvalue 9999999
