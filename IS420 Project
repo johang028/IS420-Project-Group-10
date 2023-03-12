@@ -243,11 +243,11 @@ delivery_method int,
 primary key (orderid),
 foreign key (cid) references customer,
 foreign key (resid) references restaurant, 
-constraint check_orders_delivery_method check(delivery_method in (1, 2)),
-constraint check_orders_status check(status in (1, 2, 3))
+constraint check_order_delivery_method check(delivery_method in (1, 2)),
+constraint check_order_status check(status in (1, 2, 3))
 );
 
-create sequence seq_item_order
+create sequence seq_itemOrder
 minvalue 0
 maxvalue 9999999
 start with 1
