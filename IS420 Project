@@ -128,8 +128,11 @@ create table restaurant(
 );
 
 create sequence res_seq
-    minvalue 1
-    increment by 1;
+	minvalue 0
+	maxvalue 9999999
+	start with 1
+	increment by 1
+	cache 50;
 
 insert into restaurant values(res_seq.nextval, 'Bobs Pizza', '4434568171', 'open', 
     '123 street', '46172', 'Maryland', null, null);
@@ -149,8 +152,11 @@ create table dish(
 );
 
 create sequence dish_seq
-    minvalue 1
-    increment by 1;
+	minvalue 0
+	maxvalue 9999999
+	start with 1
+	increment by 1
+	cache 50;
 
 insert into dish values(dish_seq.nextval, 1, 'Pizza', 10);
 insert into dish values(dish_seq.nextval, 2, 'Tams', 2);
@@ -164,8 +170,11 @@ create table category(
 );
 
 create sequence cat_seq
-    minvalue 1
-    increment by 1;
+	minvalue 0
+	maxvalue 9999999
+	start with 1
+	increment by 1
+	cache 50;
 
 insert into category values(cat_seq.nextval, 'Italian');
 insert into category values(cat_seq.nextval, 'Fast Food');
