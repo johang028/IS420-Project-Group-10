@@ -257,13 +257,6 @@ foreign key (resid) references restaurant,
 foreign key (dishid) references dish
 );
 
-create sequence seq_cart_dish
-minvalue 0
-maxvalue 9999999
-start with 1
-increment by 1
-cache 50;
-
 --Table 12: Order (named itemOrder since order is a keyword)
 create table itemOrder(
 orderid int,
