@@ -26,6 +26,14 @@ drop sequence pay_seq;
 drop table message cascade constraints;
 drop sequence mes_seq;
 
+drop table cart cascade constraints;
+drop sequence seq_cart;
+
+drop table cart_dish cascade constraints;
+
+drop table itemOrder cascade constraints;
+drop sequence seq_itemOrder;
+
 -- Table store customer information
 create table customer (
 	cid int not null,
@@ -256,8 +264,6 @@ values
 insert into cart
 values
 (seq_cart.nextval, 2, 2);
-
-select * from cart;
 
 --Table 11: Cart_dish
 create table cart_dish(
