@@ -38,3 +38,4 @@ create table message (
 insert into message values (1,1, date '2023-1-28', 'Receipt concerns with previous visit to the restaurant');
 insert into message values (2,2, date '2023-1-30', 'A personal message thanking the head chef.');
 insert into message values (3,3, date '2023-2-15', 'Is this restaurant open on weekends?');
+insert into message values (4,4, date...
