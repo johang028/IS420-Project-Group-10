@@ -12,9 +12,6 @@ drop table res_cat cascade constraints;
 drop table salestax cascade constraints;
 drop sequence seq_stid;
 
-drop table review cascade constraints;
-drop sequence seq_rvid;
-
 drop table cart cascade constraints;
 drop sequence seq_cart;
 
@@ -25,6 +22,9 @@ drop sequence seq_itemOrder;
 
 drop table customer cascade constraints;
 drop sequence seq_cid;
+
+drop table review cascade constraints;
+drop sequence seq_rvid;
 
 drop table dish_order cascade constraints;
 
@@ -74,33 +74,7 @@ insert into customer
 insert into customer
 	values (seq_cid.nextval, 'Ben Franklin', '84 Milky way', 'MD', 21444, 'benf@gmail.com', 0);
 
--- Table to store review information
-create table review (
-	rvid int not null,
-	cid int not null,
-	rtid int not null,
-	rvdate date not null,
-	rvscr decimal not null check (rvscr between 0.0 and 5.0),
-	rvcmt varchar2(255),
-	
-	primary key (rvid)
-);
 
--- AutoSequence for review ID
-create sequence seq_rvid
-minvalue 0
-maxvalue 9999999
-start with 1
-increment by 1
-cache 50;
-
---data for table review
-insert into review
-	values (seq_rvid.nextval, 1, 1, date '2023-02-02', 5.0, 'very good');
-insert into review
-	values (seq_rvid.nextval, 2, 2, date '2023-02-04', 4.0, 'It is okay');
-insert into review
-	values (seq_rvid.nextval, 1, 2, date '2023-02-02', 4.5, 'food is good, service is okay');
 	
 -- Table 2: discount
 Create table discount (
@@ -195,6 +169,37 @@ insert into restaurant values(res_seq.nextval, 'Timmy Tams', '4637263758', 'clos
     '123 ave', '74582', 'New York', null, null);
 insert into restaurant values(res_seq.nextval, 'Burger Place', '7584726486', 'open', 
     '123 drive', '18374', 'Maine', null, null);
+
+-- Table to store review information
+create table review (
+	rvid int not null,
+	cid int not null,
+	resid int not null,
+	rvdate date not null,
+	rvscr decimal not null check (rvscr between 0.0 and 5.0),
+	rvcmt varchar2(255),
+	
+	primary key (rvid),
+    foreign key (cid) references customer (cid),
+    foreign key (resid) references restaurant (resid)
+    
+);
+
+-- AutoSequence for review ID
+create sequence seq_rvid
+minvalue 0
+maxvalue 9999999
+start with 1
+increment by 1
+cache 50;
+
+--data for table review
+insert into review
+	values (seq_rvid.nextval, 1, 1, date '2023-02-02', 5.0, 'very good');
+insert into review
+	values (seq_rvid.nextval, 2, 2, date '2023-02-04', 4.0, 'It is okay');
+insert into review
+	values (seq_rvid.nextval, 1, 2, date '2023-02-02', 4.5, 'food is good, service is okay');
 
 --Table 8: Dish
 create table dish(
@@ -380,7 +385,7 @@ create sequence pay_seq
 
 --Table 15: message table
 create table message (
-  mesid        int,
+  mesid     int,
   cid       int,
   mtime        date,
   mbody        varchar(255),
