@@ -50,7 +50,7 @@ begin
   select count(*) into v_count
   from cart
   where cartid = v_cartid;
-
+--Check if Cart ID is valid
 if v_count = 0 
   then dbms_output.put_line ('Invalid Cart ID');
 else
@@ -60,4 +60,7 @@ for r in c1 loop
   end if;
 end;
 /
+--Regular Case
 exec display_cart(1);
+--Special Case: Invalid Cart ID
+exec display_cart(99);
