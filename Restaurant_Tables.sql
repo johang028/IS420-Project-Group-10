@@ -108,7 +108,7 @@ CREATE sequence seq_stid
 
 -- T03.3: insert data to saletax
 INSERT INTO salestax
-	VALUES (seq_stid.nextval, 'AL', '0.0400');
+	VALUES (seq_stid.nextval, 'AL', 0.0400);
 INSERT INTO salestax
 	VALUES (seq_stid.nextval, 'AK', 0.0000);
 INSERT INTO salestax
