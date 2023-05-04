@@ -1,3 +1,8 @@
+--Feature 9
+/*
+Display all reviews of a restaurant. Input is restaurant ID. First check whether the restaurant ID is valid. If not, print a message. Then print out all reviews of the restaurant, including review date, score, and comment.
+*/
+
 CREATE OR REPLACE FUNCTION get_reviews_by_restaurant_id(input_resid IN INT)
 RETURN SYS_REFCURSOR
 IS
