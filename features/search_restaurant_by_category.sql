@@ -1,3 +1,10 @@
+--Feature 3
+/*
+Search for a restaurant by category. Input is a part of category name (e.g., for fast food the input could be just 'fast'). 
+Please print out the name, average review score, average wait time, 
+and zip code for restaurants that are open and match the input category name. 
+*/
+
 CREATE OR REPLACE FUNCTION search_restaurant_by_category(input_category IN VARCHAR2)
 RETURN SYS_REFCURSOR
 IS
