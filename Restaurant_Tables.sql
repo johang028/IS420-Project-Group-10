@@ -29,7 +29,7 @@ DROP sequence mes_seq;
 -- T01 Customer
 -- T01.1: create customer table
 CREATE TABLE customer (
-	cid int,
+	cid int not null,
 	cname varchar2 (255) not null,
 	cadr varchar2 (255),
 	cstt varchar2 (2),
@@ -60,6 +60,9 @@ INSERT INTO customer
 	VALUES (seq_cid.nextval, 'Sam Houston', '4277 Winsor mills rd.', 'MD', 22442, 'sam@gmail.com', 1.00);
 INSERT INTO customer
 	VALUES (seq_cid.nextval, 'Ben Franklin', '84 Milky way', 'MD', 21444, 'benf@gmail.com', 0);
+INSERT INTO customer
+	VALUES (seq_cid.nextval, 'Connor Bedard', '501 Broadway', 'TN', 37203, 'connor@gmail.com', 1000);
+
 
 -- T02 Discount
 -- T02.1: create discount table
@@ -89,7 +92,7 @@ INSERT INTO discount (did, discount_description, discount_type)
 -- T03 Sale Tax
 -- T03.1: create saletax table
 CREATE TABLE salestax (
-	stid int,
+	stid int not null,
 	ststt varchar2(2) not null,
 	strt decimal not null,
 	
@@ -178,7 +181,7 @@ INSERT INTO restaurant
 -- T06 Review
 -- T09.1: create review table
 CREATE TABLE review (
-	rvid int,
+	rvid int not null,
 	cid int not null,
 	resid int not null,
 	rvdate date not null,
@@ -365,6 +368,25 @@ INSERT INTO itemOrder
 	VALUES (seq_itemOrder.nextval, 2, 2, timestamp '2023-3-12 10:00:30.75', null, timestamp '2023-3-12 10:15:30.75', 1, 2, 50.25, 2);
 INSERT INTO itemOrder
 	VALUES (seq_itemOrder.nextval, 3, 2, timestamp '2023-3-12 12:15:30.75', null, null, 3, 2, 0, 2);
+INSERT INTO itemOrder 
+	VALUES (seq_itemOrder.nextval, 4, 1, sysdate, sysdate, sysdate, 2, 2, 100, 2);
+INSERT INTO itemOrder 
+	VALUES (seq_itemOrder.nextval, 4, 1, sysdate, sysdate, sysdate, 2, 2, 18, 1);
+INSERT INTO itemOrder 
+	VALUES (seq_itemOrder.nextval, 4, 1, sysdate, sysdate, sysdate, 2, 2, 40, 1);
+INSERT INTO itemOrder 
+	VALUES (seq_itemOrder.nextval, 5, 2, sysdate, sysdate, sysdate, 2, 2, 27, 1);
+INSERT INTO itemOrder 
+	VALUES (seq_itemOrder.nextval, 5, 2, sysdate, sysdate, sysdate, 2, 2, 15, 2);
+INSERT INTO itemOrder 
+	VALUES (seq_itemOrder.nextval, 5, 2, sysdate, null, null, 3, 2, 0, 2);
+INSERT INTO itemOrder 
+	VALUES (seq_itemOrder.nextval, 6, 1, timestamp '2022-3-12 09:00:30.75', timestamp '2022-3-12 09:50:30.75', timestamp '2022-3-12 09:40:30.75', 2, 2, 50, 2);
+INSERT INTO itemOrder 
+	VALUES (seq_itemOrder.nextval, 6, 1, timestamp '2022-4-12 09:00:30.75', timestamp '2022-4-12 09:50:30.75', timestamp '2022-4-12 09:40:30.75', 2, 2, 60, 1);
+INSERT INTO itemOrder 
+	VALUES (seq_itemOrder.nextval, 6, 1, timestamp '2022-5-12 09:00:30.75', timestamp '2022-5-12 09:50:30.75', timestamp '2022-5-12 09:40:30.75', 2, 2, 63, 1);
+
 
 -- T13 Dish Order
 -- T13.1: create dish_order table
@@ -440,4 +462,4 @@ INSERT INTO message
 INSERT INTO message 
 	VALUES (mes_seq.nextval, 2, date '2023-1-30', 'A personal message thanking the head chef.');
 INSERT INTO message 
-	VALUES (mes_seq.nextval,3, date '2023-2-15', 'Is this restaurant open on weekends?');
+	VALUES (mes_seq.nextval, 3, date '2023-2-15', 'Is this restaurant open on weekends?');
