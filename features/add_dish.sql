@@ -1,3 +1,13 @@
+--Feature 10
+/*
+Add a dish to the shopping cart. Input includes customer ID, restaurant ID, and a dish ID. 
+First check whether the customer ID is valid. If not, print out a message with no such customer. 
+Then check whether the restaurant ID is valid and the restaurant is open. If not print out invalid restaurant ID or the restaurant is closed. 
+Finally check whether the dish belongs to the input restaurant. If it does not print out an invalid dish ID. 
+Otherwise where there is an existing shopping cart for the customer. If the cart does not exist, create a new cart for the customer and restaurant and print out the new cart ID.
+Now you can check whether the dish is already in the cart. If so, just increase the quantity by one. Otherwise inserting a new row to the table keeps dishes in a cart.
+*/
+
 create or replace procedure add_dish(c_id int, res_id int, dish_id int)
 as
     v_count int;
