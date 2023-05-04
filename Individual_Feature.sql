@@ -17,11 +17,7 @@ total amount spent (sum of total cost for orders with status 2) in the last six 
 
 
 --Feature 3
-/*
-Search for a restaurant by category. Input is a part of category name (e.g., for fast food the input could be just 'fast'). 
-Please print out the name, average review score, average wait time, 
-and zip code for restaurants that are open and match the input category name. 
-*/
+--Moved to feature folder [Sung]
 
 
 --Feature 4
