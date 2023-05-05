@@ -88,6 +88,13 @@ INSERT INTO discount (did, discount_description, discount_type)
 	VALUES (discount_seq.nextval, '10% off total charge', 2);
 INSERT INTO discount (did, discount_description, discount_type) 
 	VALUES (discount_seq.nextval, '20% off total charge', 3);
+INSERT INTO discount (did, discount_description, discount_type) 
+	VALUES (discount_seq.nextval, '30% off total charge', 4);
+INSERT INTO discount (did, discount_description, discount_type) 
+	VALUES (discount_seq.nextval, '40% off total charge', 5);
+INSERT INTO discount (did, discount_description, discount_type) 
+	VALUES (discount_seq.nextval, '50% off total charge', 6);
+
 
 -- T03 Sale Tax
 -- T03.1: create saletax table
