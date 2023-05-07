@@ -10,43 +10,43 @@ Assigned to: Immama Asif
 */
 
 create or replace procedure add_customer(
-	v_cname in varchar2,
-	v_cadr in varchar2,
-	v_cstt in varchar2,
-	v_czip in number,
-	v_cemail in varchar2,
+    v_cname in varchar2,
+    v_cadr in varchar2,
+    v_cstt in varchar2,
+    v_czip in number,
+    v_cemail in varchar2
 )
 as 
 
-v_cid number; 
+v_count number;
 
 begin 
  -- Check if customer with same email already exists
- 	select cid into v_cid 
+     select count(*) into v_count 
   from customer
   where cemail = v_cemail;
 
  -- If customer exists, update address, state, and zip
-	if v_cid is not null
-	then
-		update customer 
-		set cadr = v_cadr,
-		cstt = v_cstt, 
-		czip = v_czip
-		where cid =v_cid;
+    if v_count > 0
+    then
+        update customer 
+        set cadr = v_cadr,
+                cstt = v_cstt, 
+                czip = v_czip
+        where cemail = v_cemail;
 
   dbms_output.put_line('Customer already exists. Address, state and zip are updated');
 
-	else
- 	-- If customer does not exist, create new customer
+    else
+     -- If customer does not exist, create new customer
   insert into customer (cid, cname, cadr, cstt, czip, cemail, credit)
     values (seq_cid.nextval, v_cname, v_cadr, v_cstt, v_czip, v_cemail, null);
 
   dbms_output.put_line('New customer created. Customer ID: ' || seq_cid.currval);
-	end if;
+    end if;
 end;
 /
---customer already exists
-exec add_customer ('Ben Franklin','06 Jarilo Road','NY',54221,'bfrank1@gmail.com');
+--customer already exists and updates information accordingly
+exec add_customer ('Ben Franklin','77 Welt Avenue','NJ',67543,'benf@gmail.com');
 --new customer added
-exec add_customer ('Bronya Rand','2023 Belobog Drive','WA',21117,'brand2@gmail.com');
+exec add_customer ('Bronya Rand','419 Belobog Road','WA',22537,'bronrand@gmail.com');
