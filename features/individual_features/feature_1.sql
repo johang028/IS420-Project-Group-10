@@ -9,39 +9,44 @@ Assigned to: Immama Asif
 
 */
 
-create or replace procedure customer(
-	v_cid int not null,
-	v_cname varchar2(255) not null,
-	v_cadr varchar2(255),
-	v_cstt varchar2(2),
-	v_czip number(5),
-	v_cemail varchar2(255),
-	v_credit decimal,
+create or replace procedure add_customer(
+	v_cname in varchar2,
+	v_cadr in varchar2,
+	v_cstt in varchar2,
+	v_czip in number,
+	v_cemail in varchar2,
 )
 as 
-v_cid int; 
+
+v_cid number; 
+
 begin 
- -- Check if customer already exists
- insert into customer values(
-select cid
-  int v_cid
+ -- Check if customer with same email already exists
+ 	select cid into v_cid 
   from customer
   where cemail = v_cemail;
 
  -- If customer exists, update address, state, and zip
-update customer 
-set cadr =v_cadr,
-cstt = v_cstt, 
-czip =v_czip
-where cid =v_cid;
+	if v_cid is not null
+	then
+		update customer 
+		set cadr = v_cadr,
+		cstt = v_cstt, 
+		czip = v_czip
+		where cid =v_cid;
 
- DBMS_OUTPUT.PUT_LINE('Customer already exists.');
+  dbms_output.put_line('Customer already exists. Address, state and zip are updated');
 
-Exception
- -- If customer does not exist, create new customer
-  insert into customer (cid, cname, cadr,cstt, czip, cemail, credit)
-    values (v_cid, v_cname, v_cadr, v_cstt, v_czip, v_cemail, 0);
+	else
+ 	-- If customer does not exist, create new customer
+  insert into customer (cid, cname, cadr, cstt, czip, cemail, credit)
+    values (seq_cid.nextval, v_cname, v_cadr, v_cstt, v_czip, v_cemail, null);
 
-    DBMS_OUTPUT.PUT_LINE('New customer created. Customer ID: ' || v_customer_id);
-END;
+  dbms_output.put_line('New customer created. Customer ID: ' || seq_cid.currval);
+	end if;
+end;
 /
+--customer already exists
+exec add_customer ('Ben Franklin','06 Jarilo Road','NY',54221,'bfrank1@gmail.com');
+--new customer added
+exec add_customer ('Bronya Rand','2023 Belobog Drive','WA',21117,'brand2@gmail.com');
