@@ -184,6 +184,11 @@ INSERT INTO restaurant
 	VALUES(res_seq.nextval, 'Timmy Tams', '4637263758', 'closed', '123 ave', '74582', 'NY', null, null);
 INSERT INTO restaurant 
 	VALUES(res_seq.nextval, 'Burger Place', '7584726486', 'open', '123 drive', '18374', 'MA', null, null);
+INSERT INTO restaurant 
+	VALUES(res_seq.nextval, 'McDonald''s', '4107885089', 'open', '5637 Baltimore National Pike', '21228', 'MD', null, null);
+INSERT INTO restaurant 
+	VALUES(res_seq.nextval, 'Wendy''s', '4107474489', 'open', '6600 Baltimore National Pike', '21228', 'MD', null, null);
+
 
 -- T06 Review
 -- T09.1: create review table
