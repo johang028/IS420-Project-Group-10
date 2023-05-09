@@ -350,6 +350,13 @@ INSERT INTO cart_dish
 	VALUES (2, 2, 1, 5);
 INSERT INTO cart_dish
 	VALUES (3, 2, 2, 15);
+INSERT INTO cart_dish
+	VALUES (1, 3, 5, 1);
+INSERT INTO cart_dish
+	VALUES (1, 1, 2, 5);
+INSERT INTO cart_dish
+	VALUES (1, 1, 3, 2);
+
 
 -- T12 Order
 -- T12.1: create itemorder table
