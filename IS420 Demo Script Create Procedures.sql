@@ -36,10 +36,6 @@ begin
     end if;
 end;
 /
---customer already exists and updates information accordingly
-exec add_customer ('Ben Franklin','77 Welt Avenue','NJ',67543,'benf@gmail.com');
---new customer added
-exec add_customer ('Bronya Rand','419 Belobog Road','WA',22537,'bronrand@gmail.com');
 
 /*Feature 2*/
 create or replace procedure check_email(email in varchar2)
