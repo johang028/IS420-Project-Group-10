@@ -39,6 +39,11 @@ BEGIN
 END;
 / 
 
-exec srch_res_by_cat ('food'); --regular case
-exec srch_res_by_cat ('merican'); --regular case
-exec srch_res_by_cat ('asian'); --special case; 0 result
+--regular code1
+exec srch_res_by_cat ('food');
+
+--regular code2
+exec srch_res_by_cat ('meri');
+
+--special case; 0 result
+exec srch_res_by_cat ('asian');
