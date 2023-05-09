@@ -297,6 +297,11 @@ INSERT INTO res_cat
 	VALUES (2, 2);
 INSERT INTO res_cat 
 	VALUES (3, 3);
+INSERT INTO res_cat 
+	VALUES (2, 4);
+INSERT INTO res_cat 
+	VALUES (2, 5);
+
 
 -- T10 Cart
 -- T10.1: create cart table
