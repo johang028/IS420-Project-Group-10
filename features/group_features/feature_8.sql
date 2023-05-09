@@ -42,7 +42,7 @@ update restaurant
     (select avg(rvscr)
       from review
       where resid = v_resid)
-  where resid = v_resid
+  where resid = v_resid;
 
   dbms_output.put_line ('Restaurant review score updated');
   end if;
