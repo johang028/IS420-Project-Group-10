@@ -12,14 +12,14 @@ AS
         FROM restaurant r
         JOIN res_cat rc ON r.resid = rc.resid
         JOIN category c ON rc.catid = c.catid
-        WHERE UPPER(c.catname) LIKE '%' || UPPER(p_category_name) || '%'
+        WHERE LOWER(c.catname) LIKE '%' || LOWER(p_category_name) || '%'
         AND r.resstatus = 'open';
 BEGIN
     SELECT COUNT(*) INTO v_count
     FROM restaurant r
     JOIN res_cat rc ON r.resid = rc.resid
     JOIN category c ON rc.catid = c.catid
-    WHERE UPPER(c.catname) LIKE '%' || UPPER(p_category_name) || '%'
+    WHERE LOWER(c.catname) LIKE '%' || LOWER(p_category_name) || '%'
     AND r.resstatus = 'open';
     
     IF v_count = 0 THEN
