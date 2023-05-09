@@ -221,6 +221,10 @@ INSERT INTO review
 	VALUES (seq_rvid.nextval, 2, 2, date '2023-02-04', 4.0, 'It is okay');
 INSERT INTO review
 	VALUES (seq_rvid.nextval, 1, 2, date '2023-02-02', 4.5, 'food is good, service is okay');
+INSERT INTO review
+    	VALUES (seq_rvid.nextval, 4, 1, date '2023-04-26', 5, 'Excellent service and delicious pizza');
+INSERT INTO review
+    	VALUES (seq_rvid.nextval, 5, 1, date '2023-05-05', 2, 'Very limited options, and signature pizza tastes bland');
 
 -- T07 Dish
 -- T07.1: create dish table
