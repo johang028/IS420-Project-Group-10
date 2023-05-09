@@ -620,7 +620,16 @@ select * from cart_dish;
 
 --Special case, customer does not have a cart
 /*added drop and create statement to ensure cartid.nextval is proper (id would be 5 instead of 4 if no drop and create here)*/
-DROP TABLE cart cascade constraints; 
+DROP TABLE cart cascade constraints;
+CREATE TABLE cart(
+	cartid int,
+	cid int,
+	resid int,
+	
+	primary key (cartid),
+	foreign key (cid) references customer,
+	foreign key (resid) references restaurant
+); 
 DROP sequence seq_cart;
 
 CREATE sequence seq_cart
