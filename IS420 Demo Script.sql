@@ -568,6 +568,7 @@ exec print_dishes(200);
 
 /*Individual Feature 5*/
 --Regular Case
+select * from dish;
 select * from cart_dish;
 exec display_cart(1);
 
