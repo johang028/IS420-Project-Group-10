@@ -74,17 +74,19 @@ select * from cart_dish;
 exec remove_dish(50,50);
 
 /*Group Feature 7*/
---test case: invalid order id | Works correctly
+--test case: invalid order id
 exec update_itemOrder_status(99, 2, timestamp '2023-3-12 09:00:30.75');
 
---regular case: update status to 1 (order id 4 has default status of 2) | Works correctly
+--regular case: update status to 1 (order id 4 has default status of 2)
 select * from itemOrder;
 exec update_itemOrder_status(4, 1, timestamp '2023-3-12 09:00:30.75');
 select * from itemOrder;
 
---regular case: update status to 2 (order id 1 has a default status of 1) | Works correctly
+--regular case: update status to 2 (order id 1 has a default status of 1)
+select * from itemOrder;
 select * from message;
 exec update_itemOrder_status(1, 2, timestamp '2023-3-12 09:00:30.75');
+select * from itemOrder;
 select * from message;
 
 --regular case: update status to 3 (order id 2 has a default status of 1) | Works correctly
@@ -96,7 +98,9 @@ select * from payment;
 
 /*Group Feature 8*/
 --regular case
+select * from review;
 exec enter_review (2,2, date '2023-04-06',4,'Good desserts and lots of options');
+select * from review;
 
 --special case: invalid customer ID
 exec enter_review (20,2, date '2023-04-26',2,'I found plastic in my steak');
